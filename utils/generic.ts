@@ -85,7 +85,7 @@ hostMap.set('championcross.jp', ComiciHandler)
 hostMap.set('flowercomics.jp', FlowerComicsHandler)
 hostMap.set('www.ganganonline.com', GanGanOnlineHandler)
 hostMap.set('comic-growl.com', GigaViewHandler)
-
+hostMap.set('storia.takeshobo.co.jp', SpeedBinbHandler)
 export function mapUrlToHandler(url: string): typeof GigaViewHandler {
   const host = new URL(url).hostname
 
