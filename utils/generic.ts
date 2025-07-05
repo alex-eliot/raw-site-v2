@@ -16,6 +16,8 @@ import GanmaHandler from "~/src/resources/Ganma";
 import ComicFuzHandler from "~/src/resources/ComicFuz/ComicFuz";
 import FlowerComicsHandler from "~/src/resources/FlowerComics";
 import GanGanOnlineHandler from "~/src/resources/GanGanOnline";
+import CiaoShogakukanHandler from "~/src/resources/CiaoShogakukan";
+import PixivHandler from "~/src/resources/Pixiv";
 
 export async function downloadZipFile(zipFile: JSZip) {
   const zipBlob = await zipFile.generateAsync({ type: 'blob' })
@@ -86,6 +88,8 @@ hostMap.set('flowercomics.jp', FlowerComicsHandler)
 hostMap.set('www.ganganonline.com', GanGanOnlineHandler)
 hostMap.set('comic-growl.com', GigaViewHandler)
 hostMap.set('storia.takeshobo.co.jp', SpeedBinbHandler)
+hostMap.set('ciao.shogakukan.co.jp', CiaoShogakukanHandler)
+hostMap.set('www.pixiv.net', PixivHandler)
 export function mapUrlToHandler(url: string): typeof GigaViewHandler {
   const host = new URL(url).hostname
 
