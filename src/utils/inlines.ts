@@ -6,3 +6,10 @@ export function assertReturn<T = any>(property: T | undefined, errMsg: string, b
 
   return property
 }
+
+export function getStandardStates() {
+  return [
+    { name: 'Getting API data.', percentage: 0 },
+    { name: 'Downloading & Processing the Images...', percentage: 0 },
+  ]
+}

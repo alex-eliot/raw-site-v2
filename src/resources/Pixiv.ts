@@ -1,6 +1,6 @@
 import JSZip from "jszip";
 import { ResourceHandler } from "../resources.type";
-import { assertReturn } from "../utils/inlines";
+import { assertReturn, getStandardStates } from "../utils/inlines";
 import { getFromProxy } from "../proxy";
 import { array, assert, mask, number, object, optional, string, type } from "superstruct";
 
@@ -31,10 +31,7 @@ export default class PixivHandler implements ResourceHandler {
       'Could not find id in URL.'
     )
 
-    this.states = [
-      { name: 'Getting API data.', percentage: 0 },
-      { name: 'Downloading images', percentage: 0 },
-    ]
+    this.states = getStandardStates()
     this.currentStateIndex = 0
 
     this.zipFile = new JSZip()
