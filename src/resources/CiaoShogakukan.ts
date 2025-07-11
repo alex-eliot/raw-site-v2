@@ -39,7 +39,7 @@ export default class CiaoShogakukanHandler implements ResourceHandler {
   private async unscrambleImage(
       inputBuffer: ArrayBuffer,
       scrambleSeed: number,
-  ): Promise<ArrayBuffer> {
+  ): Promise<Uint8Array<ArrayBuffer>> {
       const blob = new Blob([inputBuffer]);
       const imageUrl = URL.createObjectURL(blob);
       const image = await new Promise<HTMLImageElement>((resolve, reject) => {
@@ -85,13 +85,9 @@ export default class CiaoShogakukanHandler implements ResourceHandler {
         );
       }
 
-      return new Promise<ArrayBuffer>((resolve) => {
-        canvas.toBlob((blob) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result as ArrayBuffer);
-          reader.readAsArrayBuffer(blob!);
-        }, 'image/png');
-      });
+      return canvasToBuffer(canvas)
+    
+
   }
 
   private *generatePRNG(seed: number): Generator<number> {
