@@ -18,6 +18,7 @@ import FlowerComicsHandler from "~/src/resources/FlowerComics";
 import GanGanOnlineHandler from "~/src/resources/GanGanOnline";
 import CiaoShogakukanHandler from "~/src/resources/CiaoShogakukan";
 import PixivHandler from "~/src/resources/Pixiv";
+import PocketMagazineHandler from "~/src/resources/PocketMagazine";
 
 export async function downloadZipFile(zipFile: JSZip) {
   const zipBlob = await zipFile.generateAsync({ type: 'blob' })
@@ -64,7 +65,7 @@ hostMap.set('gaugau.futabanet.jp', SpeedBinbHandler)
 hostMap.set('kuragebunch.com', GigaViewHandler)
 hostMap.set('magcomi.com', GigaViewHandler)
 hostMap.set('manga.zerosumonline.com', SpeedBinbHandler)
-hostMap.set('pocket.shonenmagazine.com', GigaViewHandler)
+hostMap.set('pocket.shonenmagazine.com', PocketMagazineHandler)
 hostMap.set('shonenjumpplus.com', GigaViewHandler)
 hostMap.set('static.ichijinsha.co.jp', SpeedBinbHandler)
 hostMap.set('tonarinoyj.jp', GigaViewHandler)
