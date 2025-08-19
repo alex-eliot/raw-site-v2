@@ -84,8 +84,6 @@ export default class PocketMagazineHandler implements ResourceHandler {
       }
 
       return canvasToBuffer(canvas)
-    
-
   }
 
   private *generatePRNG(seed: number): Generator<number> {

@@ -7,8 +7,6 @@ import { array, assert, mask, number, object, optional, string, type } from "sup
 const preserveRight = 4;
 const gridSize = 4;
 
-
-
 export const ChapterDataSchema = object({
   status: string(),
   error_code: optional(string()),
@@ -86,8 +84,6 @@ export default class CiaoShogakukanHandler implements ResourceHandler {
       }
 
       return canvasToBuffer(canvas)
-    
-
   }
 
   private *generatePRNG(seed: number): Generator<number> {

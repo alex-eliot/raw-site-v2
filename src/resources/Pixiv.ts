@@ -38,7 +38,6 @@ export default class PixivHandler implements ResourceHandler {
   }
 
   async execute(): Promise<JSZip> {
-
     const resp = await getFromProxy(
       `https://www.pixiv.net/ajax/illust/${this.id}/pages`,
     )
