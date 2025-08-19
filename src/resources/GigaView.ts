@@ -1,11 +1,22 @@
 import JSZip from "jszip";
 import { ResourceHandler } from "../resources.type";
-import { getFromProxy } from "../proxy";
-import { array, assert, optional, string, type } from "superstruct";
+import { getFromProxy, getProxiedUrl } from "../proxy";
+import { array, assert, optional, string, type, enums, defaulted } from "superstruct";
+import { assertReturn } from "../utils/inlines";
+
+type DescramblingConstants = {
+  DIVIDE_NUM: number
+  MULTIPLE: number
+  width: number
+  height: number
+  cell_width: number
+  cell_height: number
+}
 
 export const ChapterDataSchema = type({
   readableProduct: type({
     pageStructure: type({
+      choJuGiga: defaulted(optional(enums(["baku", "usagi"])), "usagi"),
       pages: array(type({
         type: string(),
         src: optional(string())
@@ -42,8 +53,9 @@ export default class GigaViewHandler implements ResourceHandler {
     this.currentStateIndex += 1
 
     const process = async (page: typeof body.readableProduct.pageStructure.pages[0], index: number) => {
-      const resp = await getFromProxy(page.src!)
-      const buffer = await resp.arrayBuffer()
+      const buffer = await (body.readableProduct.pageStructure.choJuGiga === "baku"
+        ? this.getDescrambledImage(page.src!)
+        : this.getImageWithoutDrm(page.src!))
 
       this.zipFile.file(`${(index + 1).toString().padStart(3, '0')}.jpg`, buffer)
 
@@ -54,6 +66,64 @@ export default class GigaViewHandler implements ResourceHandler {
     await Promise.all(body.readableProduct.pageStructure.pages.filter(page => page.type === 'main').map((page, index) => process(page, index)))
 
     return this.zipFile
+  }
+
+  protected async getImageWithoutDrm(src: string) {
+    return getFromProxy(src).then(r => r.arrayBuffer())
+  }
+
+  protected async getDescrambledImage(src: string) {
+    const img = await this.getImageFromSrc(getProxiedUrl(src))
+    const constants = this.getDescramblingConstants(img)
+    return this.descramble(img, constants)
+  }
+
+  protected async getImageFromSrc(src: string) {
+    return new Promise<HTMLImageElement>((rs, rj) => {
+      const img = new Image()
+      img.onload = () => rs(img)
+      img.onerror = (err) => rj(err)
+      img.src = src
+    })
+  }
+
+  protected getDescramblingConstants(img: HTMLImageElement): DescramblingConstants {
+    const DIVIDE_NUM = 4
+    const MULTIPLE = 8
+    const width = img.width
+    const height = img.height
+    const cell_width = Math.floor(width / (DIVIDE_NUM * MULTIPLE)) * MULTIPLE
+    const cell_height = Math.floor(height / (DIVIDE_NUM * MULTIPLE)) * MULTIPLE
+
+    return {
+      DIVIDE_NUM,
+      MULTIPLE,
+      width,
+      height,
+      cell_width,
+      cell_height,
+    }
+  }
+
+  protected async descramble(img: HTMLImageElement, constants: DescramblingConstants) {
+    const canvas = document.createElement("canvas")
+    canvas.width = img.width
+    canvas.height = img.height
+    const ctx = assertReturn(canvas.getContext("2d") ?? undefined, "Could not get canvas 2d context")
+
+    ctx.drawImage(img, 0, 0, constants.width, constants.height, 0, 0, constants.width, constants.height)
+
+    for (let e = 0; e < constants.DIVIDE_NUM * constants.DIVIDE_NUM; e++) {
+      const t = Math.floor(e / constants.DIVIDE_NUM) * constants.cell_height
+        , i = e % constants.DIVIDE_NUM * constants.cell_width
+        , r = Math.floor(e / constants.DIVIDE_NUM)
+        , n = e % constants.DIVIDE_NUM * constants.DIVIDE_NUM + r
+        , s = n % constants.DIVIDE_NUM * constants.cell_width
+        , o = Math.floor(n / constants.DIVIDE_NUM) * constants.cell_height;
+      ctx.drawImage(img, i, t, constants.cell_width, constants.cell_height, s, o, constants.cell_width, constants.cell_height)
+    }
+
+    return canvasToBuffer(canvas)
   }
 }
 
