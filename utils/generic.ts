@@ -93,7 +93,7 @@ hostMap.set('storia.takeshobo.co.jp', SpeedBinbHandler)
 hostMap.set('ciao.shogakukan.co.jp', CiaoShogakukanHandler)
 hostMap.set('www.pixiv.net', PixivHandler)
 hostMap.set('www.pixiv.net', PixivHandler)
-hostMap.set('https://kirapo.jp/',KirapoHandler)
+hostMap.set('kirapo.jp',KirapoHandler)
 export function mapUrlToHandler(url: string): typeof GigaViewHandler {
   const host = new URL(url).hostname
 
