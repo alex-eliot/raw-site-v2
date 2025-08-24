@@ -43,8 +43,6 @@ export const ValidProxiedHosts = union([
     'comic-trail.com',
     'cdn-img.comic-trail.com',
     'www.comic-brise.com',
-    'comic-meteor.jp',
-    'comic-polaris.jp',
     'manga.zerosumonline.com',
     'gammaplus.takeshobo.co.jp',
     'gaugau.futabanet.jp',
@@ -87,7 +85,9 @@ export const ValidProxiedHosts = union([
     "www.pixiv.net",
     "i.pximg.net",
     "api.pocket.shonenmagazine.com",
-    "mgpk-cdn.magazinepocket.com"
+    "mgpk-cdn.magazinepocket.com",
+    "kirapo.jp",
+    "cdn-ak-img.shonenjumpplus.com"
   ]),
   pattern(string(), /[^\/]*\.cloudfront\.net/)
 ])

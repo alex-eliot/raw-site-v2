@@ -38,6 +38,14 @@ export default class SpeedBinbHandler implements ResourceHandler {
     this.zipFile = new JSZip()
   }
 
+  getPtimgUrl(ptimgUrl: string): string {
+    return `${this.url.href}/${ptimgUrl}`
+  }
+
+  getImgUrl(srcUrl: string): string {
+    return `${this.url.href}/data/${srcUrl}`
+  }
+
   async execute(): Promise<JSZip> {
     const resp = await getFromProxy(this.url.href)
     const html = await resp.text()
@@ -52,7 +60,8 @@ export default class SpeedBinbHandler implements ResourceHandler {
     this.currentStateIndex += 1
 
     const process = async (page: Element, index: number) => {
-      const resp = await getFromProxy(`${this.url.href}/${page.getAttribute('data-ptimg')}`)
+      const ptimgUrl = this.getPtimgUrl(page.getAttribute('data-ptimg')!)
+      const resp = await getFromProxy(ptimgUrl)
       const body = await resp.json()
 
       assert(body, PageSchema)
@@ -61,7 +70,8 @@ export default class SpeedBinbHandler implements ResourceHandler {
 
       const img = new Image()
       img.crossOrigin = 'Anonymous'
-      img.src = getProxiedUrl(`${this.url.href}/data/${body.resources.i.src}`)
+      const srcUrl = this.getImgUrl(body.resources.i.src)
+      img.src = getProxiedUrl(srcUrl)
       await img.decode()
 
       const canvas = document.createElement('canvas')
