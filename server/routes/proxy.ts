@@ -49,9 +49,11 @@ export default defineEventHandler(async (event) => {
       ? await axios(combined, { responseType: 'stream', headers })
       : await axios.post(combined, new Uint8Array(body!), { responseType: 'stream', headers })
 
-    setHeaders(event, {
-      'Content-Type': stream.headers['content-type'],
-    })
+    if (stream.headers['content-type']) {
+      setHeaders(event, {
+        'Content-Type': stream.headers['content-type'],
+      })
+    }
     
     return sendStream(event, stream.data)
   } catch (error) {
