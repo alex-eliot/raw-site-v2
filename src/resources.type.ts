@@ -11,3 +11,5 @@ export interface ResourceHandler {
 
   execute(): Promise<JSZip>
 }
+
+export type ResourceHandlerConstructor = new (url: string) => ResourceHandler;

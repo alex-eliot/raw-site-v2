@@ -2,7 +2,7 @@ import axios from "axios"
 import { sendStream } from "h3"
 import { is } from "superstruct"
 import { assertReturn } from "~/src/utils/inlines"
-
+import https from "https"
 import { ValidProxiedHosts } from "~/src/proxy"
 
 export default defineEventHandler(async (event) => {
@@ -45,9 +45,24 @@ export default defineEventHandler(async (event) => {
     const [first, second] = urlToProxy.href.split('?')
     const combined = second ? `${decodeURIComponent(first)}?${second}` : decodeURIComponent(first)
 
-    const stream = method === 'GET'
-      ? await axios(combined, { responseType: 'stream', headers })
-      : await axios.post(combined, new Uint8Array(body!), { responseType: 'stream', headers })
+    if (event.node.req.headers['content-type']) {
+      headers['Content-Type'] = event.node.req.headers['content-type'];
+    }
+
+    const domain = urlToProxy.hostname.split(".").slice(-2).join('.');
+    let stream
+    if (domain == "pubg-img.si") {
+      stream = method === 'GET'
+        ? await axios(combined, { responseType: 'stream', headers, httpsAgent: new https.Agent({ rejectUnauthorized: false }) })
+        : await axios.post(combined, new Uint8Array(body!), { responseType: 'stream', headers, httpsAgent: new https.Agent({ rejectUnauthorized: false }) } )
+    }
+    else {
+      stream = method === 'GET'
+        ? await axios(combined, { responseType: 'stream', headers })
+        : await axios.post(combined, new Uint8Array(body!), { responseType: 'stream', headers } )
+    }
+
+
 
     if (stream.headers['content-type']) {
       setHeaders(event, {
