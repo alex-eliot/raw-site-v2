@@ -2,6 +2,7 @@ import JSZip from "jszip";
 import { nanoid } from "nanoid";
 import { Infer, validate } from "superstruct";
 import { ValidProxiedHosts } from "~/src/proxy";
+import RawLazyHandler from "~/src/resources/RawLazy";
 import ComicEarthstarHandler from "~/src/resources/ComicEarthstar";
 import ComicPixivHandler from "~/src/resources/ComicPixiv";
 import CommicWalkerHandler from "~/src/resources/ComicWalker";
@@ -20,7 +21,7 @@ import CiaoShogakukanHandler from "~/src/resources/CiaoShogakukan";
 import PixivHandler from "~/src/resources/Pixiv";
 import PocketMagazineHandler from "~/src/resources/PocketMagazine";
 import KirapoHandler from "~/src/resources/Kirapo";
-
+import { ResourceHandlerConstructor } from "~/src/resources.type";
 export async function downloadZipFile(zipFile: JSZip) {
   const zipBlob = await zipFile.generateAsync({ type: 'blob' })
 
@@ -45,7 +46,7 @@ export function canvasToBuffer(canvas: HTMLCanvasElement) {
   return buffer
 }
 
-export const hostMap = new Map<Infer<typeof ValidProxiedHosts>, typeof GigaViewHandler>()
+export const hostMap = new Map<Infer<typeof ValidProxiedHosts>, ResourceHandlerConstructor>()
 hostMap.set('comic-action.com', GigaViewHandler)
 hostMap.set('comic-days.com', GigaViewHandler)
 hostMap.set('viewer.comic-earthstar.jp', ComicEarthstarHandler)
@@ -94,7 +95,8 @@ hostMap.set('ciao.shogakukan.co.jp', CiaoShogakukanHandler)
 hostMap.set('www.pixiv.net', PixivHandler)
 hostMap.set('www.pixiv.net', PixivHandler)
 hostMap.set('kirapo.jp',KirapoHandler)
-export function mapUrlToHandler(url: string): typeof GigaViewHandler {
+hostMap.set('rawlazy.io', RawLazyHandler)
+export function mapUrlToHandler(url: string): ResourceHandlerConstructor {
   const host = new URL(url).hostname
 
   const assuredHost = assertReturn(
