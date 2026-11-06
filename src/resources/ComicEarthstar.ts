@@ -1,8 +1,9 @@
 import JSZip from "jszip";
-import { ResourceHandler } from "../resources.type";
+import type { ResourceHandler } from "../resources.type";
 import { assertReturn } from "../utils/inlines";
 import { getFromProxy, getProxiedUrl } from "../proxy";
-import { Infer, array, assert, enums, number, object, string, type } from "superstruct";
+import type { Infer } from "superstruct";
+import { array, assert, enums, number, object, string, type } from "superstruct";
 
 export const MetadataResponseSchema = type({
   status: string(),

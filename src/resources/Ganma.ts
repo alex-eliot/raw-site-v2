@@ -1,6 +1,6 @@
 import JSZip from "jszip";
 import { getFromProxy } from "~/src/proxy";
-import { ResourceHandler } from "~/src/resources.type";
+import type { ResourceHandler } from "~/src/resources.type";
 import { assertReturn } from "~/src/utils/inlines";
 import { array, assert, string, type } from "superstruct";
 

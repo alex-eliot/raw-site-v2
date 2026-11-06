@@ -1,6 +1,7 @@
 import JSZip from "jszip"
-import { ResourceHandler } from "../resources.type"
-import { any, array, assert, Infer, is, literal, nullable, object, optional, string, type, union, unknown } from "superstruct"
+import type { ResourceHandler } from "../resources.type"
+import type { Infer } from "superstruct"
+import { any, array, assert, is, literal, nullable, object, optional, string, type, union, unknown } from "superstruct"
 import { getFromProxy } from "../proxy"
 import { assertReturn } from "../utils/inlines"
 
@@ -154,7 +155,7 @@ async function importKey(rawKey: string) {
   return cryptoKey;
 }
 
-async function decryptData(encryptedBuffer: Buffer | ArrayBuffer, key: CryptoKey, iv: string) {
+async function decryptData(encryptedBuffer: ArrayBuffer, key: CryptoKey, iv: string) {
   // Perform decryption using the Web Crypto API
   const decryptedBuffer = await crypto.subtle.decrypt(
     {

@@ -1,5 +1,5 @@
 import JSZip from "jszip";
-import { ResourceHandler } from "../../resources.type";
+import type { ResourceHandler } from "../../resources.type";
 import { assertReturn } from "../../utils/inlines";
 import { Position, WebMangaViewerRequest, WebMangaViewerResponse } from "./Contracts";
 import { getFromProxy, postFromProxy } from "~/src/proxy";
@@ -56,7 +56,8 @@ export default class ComicFuzHandler implements ResourceHandler {
           }
         }
 
-    const resp = await postFromProxy(`https://api.comic-fuz.com/v1/web_manga_viewer`, {}, WebMangaViewerRequest.encode(req).finish())
+    const requestBody = new Uint8Array(WebMangaViewerRequest.encode(req).finish())
+    const resp = await postFromProxy(`https://api.comic-fuz.com/v1/web_manga_viewer`, {}, requestBody)
 
     const buf = new Uint8Array(await resp.arrayBuffer())
     const body = WebMangaViewerResponse.decode(buf)
@@ -114,7 +115,7 @@ async function importKey(rawKey: string) {
   return cryptoKey;
 }
 
-async function decryptData(encryptedBuffer: Buffer | ArrayBuffer, key: CryptoKey, iv: string) {
+async function decryptData(encryptedBuffer: ArrayBuffer, key: CryptoKey, iv: string) {
   // Perform decryption using the Web Crypto API
   const decryptedBuffer = await crypto.subtle.decrypt(
     {

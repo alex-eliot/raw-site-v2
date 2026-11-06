@@ -11,7 +11,7 @@
       <InputBox
         v-model="url"
         class="
-          w-full p-4 pr-28 rounded-full bg-neutral-600/90 backdrop-blur-lg outline-none
+          w-full p-4 pr-28 rounded-full bg-neutral-600/90 backdrop-blur-lg outline-hidden
           transition-all
           hover:outline-purple-400 focus:outline-purple-300
         "
@@ -95,7 +95,7 @@
       </TransitionAutoHeight>
     </div>
   </div>
-  <div class="fixed w-full top-0 left-0 p-4 bg-gradient-to-b from-black/75 via-black/50 to-transparent">
+  <div class="fixed w-full top-0 left-0 p-4 bg-linear-to-b from-black/75 via-black/50 to-transparent">
     <div class="flex justify-between">
       <h1 class="my-auto text-xl sm:text-2xl text-white font-bold select-none">
         Raw Downloader
@@ -148,8 +148,8 @@
 </template>
 
 <script setup lang="ts">
-import { ResourceHandler } from "~/src/resources.type"
-import { Background } from "~/server/routes/background"
+import type { ResourceHandler } from "~/src/resources.type"
+import type { Background } from "~~/shared/types/background"
 
 import { IconX, IconArrowRight, IconDownload, IconCheck, IconPlug, IconExternalLink, IconInfoCircle, IconCookie } from "@tabler/icons-vue"
 import SwitchBtn from "~/components/SwitchBtn.vue";

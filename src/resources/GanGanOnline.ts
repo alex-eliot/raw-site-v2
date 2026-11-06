@@ -1,7 +1,8 @@
 import JSZip from "jszip";
-import { ResourceHandler } from "../resources.type";
+import type { ResourceHandler } from "../resources.type";
 import { getFromProxy } from "../proxy";
-import { array, assert, Infer, optional, string, type } from "superstruct";
+import type { Infer } from "superstruct";
+import { array, assert, optional, string, type } from "superstruct";
 
 const NextDataProps = type({
   props: type({

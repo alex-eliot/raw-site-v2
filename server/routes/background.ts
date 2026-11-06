@@ -1,14 +1,5 @@
 import { assertReturn } from "~/src/utils/inlines"
-
-export interface Background {
-  src: string
-  orientation: 'portrait' | 'landscape'
-  credit: {
-    pixiv: string | null,
-    twitter: string | null,
-    original: string
-  }
-}
+import type { Background } from "~~/shared/types/background"
 
 const backgrounds: Background[] = [
   {

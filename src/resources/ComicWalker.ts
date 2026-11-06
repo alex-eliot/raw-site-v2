@@ -2,7 +2,7 @@ import { any, array, assert, enums, nullable, number, object, string, type, unio
 import { getFromProxy } from "../proxy"
 import { assertReturn } from "../utils/inlines"
 import JSZip from "jszip"
-import { ResourceHandler } from "../resources.type"
+import type { ResourceHandler } from "../resources.type"
 
 const UrlIdRegex = /^https:\/\/comic-walker\.com\/detail\/(KC_.*)\/episodes\/(KC_.*)/
   

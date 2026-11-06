@@ -3,9 +3,9 @@
 This is a utility to download images from various comic-reading sites for local use.
 
 ## Running
-1. Install NodeJS and Yarn (`npm i -g yarn`)
-2. `yarn install`
-3. `yarn dev`
+1. Install NodeJS and pnpm (`npm i -g pnpm`)
+2. `pnpm install`
+3. `pnpm dev`
 
 ## Contributing
 

@@ -2,7 +2,7 @@
   <TransitionRoot as="template" :show="open">
     <Dialog as="div" class="relative z-10" @close="open = false">
       <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity" />
+        <div class="fixed inset-0 bg-gray-900/75 transition-opacity" />
       </TransitionChild>
 
       <div class="fixed inset-0 z-10 overflow-y-auto">
@@ -42,7 +42,7 @@
                           autocomplete="off"
                           :value="proxyUrl"
                           @input="e => proxyUrl = (e.target as HTMLInputElement).value"
-                          class="block bg-neutral-700 w-full rounded-md py-1.5 px-1.5 text-gray-100 shadow-sm placeholder:text-gray-400 transition-all focus:outline-purple-400 outline-none sm:text-sm sm:leading-6"
+                          class="block bg-neutral-700 w-full rounded-md py-1.5 px-1.5 text-gray-100 shadow-xs placeholder:text-gray-400 transition-all focus:outline-purple-400 outline-hidden sm:text-sm sm:leading-6"
                           :placeholder="origin"
                         />
                       </div>
@@ -53,7 +53,7 @@
               <div class="bg-neutral-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button
                   type="button"
-                  class="transition inline-flex w-full justify-center rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 sm:ml-3 sm:w-auto"
+                  class="transition inline-flex w-full justify-center rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-purple-500 sm:ml-3 sm:w-auto"
                   @click="() => {
                     setProxyUrl(proxyUrl)
                     open = false
@@ -63,7 +63,7 @@
                 </button>
                 <button
                   type="button"
-                  class="transition mt-3 inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-gray-100 shadow-sm hover:bg-neutral-700 sm:mt-0 sm:w-auto"
+                  class="transition mt-3 inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-gray-100 shadow-xs hover:bg-neutral-700 sm:mt-0 sm:w-auto"
                   @click="() => {
                     proxyUrl = ''
                     open = false

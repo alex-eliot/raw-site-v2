@@ -1,5 +1,5 @@
 import JSZip from "jszip";
-import { ResourceHandler } from "../resources.type";
+import type { ResourceHandler } from "../resources.type";
 import { assertReturn } from "../utils/inlines";
 import crypto from "crypto-js"
 import { getFromProxy } from "../proxy";
