@@ -28,6 +28,7 @@
     "cross-env": "^10.1.0",
     "jszip": "^3.10.2",
     "nanoid": "^6.0.2",
-    "superstruct": "^2.0.2"
+    "superstruct": "^2.0.2",
+    "unstorage": "^1.17.6"
   }
 }
