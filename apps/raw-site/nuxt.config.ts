@@ -9,6 +9,11 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@raw-downloader/downloader']
   },
+  nitro: {
+    externals: {
+      inline: ['crypto-js', 'protobufjs']
+    }
+  },
   vite: {
     plugins: [
       tailwindcss()
