@@ -12,6 +12,10 @@
     "preview": "pnpm --filter raw-site preview",
     "typecheck": "pnpm --filter raw-site typecheck",
     "serve:build": "pnpm --filter raw-site serve:build",
+    "start": "pm2 start ecosystem.config.cjs",
+    "reload": "pm2 startOrReload ecosystem.config.cjs --update-env",
+    "stop": "pm2 delete raw-site",
+    "logs": "pm2 logs raw-site",
     "dev:extension": "pnpm --filter extension dev",
     "dev:extension:firefox": "pnpm --filter extension dev:firefox",
     "build:extension": "pnpm --filter extension build",
@@ -22,5 +26,8 @@
     "build:all": "pnpm -r build",
     "typecheck:all": "pnpm -r typecheck"
   },
-  "packageManager": "pnpm@9.15.9"
+  "packageManager": "pnpm@9.15.9",
+  "devDependencies": {
+    "pm2": "^7.1.2"
+  }
 }

@@ -18,6 +18,18 @@ This is a pnpm monorepo:
 
 The root scripts proxy to the `raw-site` workspace. You can also run them directly with `pnpm --filter raw-site dev`.
 
+## Production with PM2
+
+PM2 is included as a root dev dependency. Build the site, then start it:
+
+1. `pnpm install`
+2. `pnpm build`
+3. `pnpm start`
+
+The app listens on port `4006` by default. Override it with `PORT=5000 pnpm start`. After rebuilding, use `pnpm reload`; use `pnpm stop` to remove it and `pnpm logs` to follow logs.
+
+To start on boot, run `pnpm exec pm2 startup` and `pnpm exec pm2 save` after starting the app.
+
 ## Browser extensions
 
 The extension exposes a popup with a content script. The popup drives the shared extractor inside the current tab, so requests run on the reader page's origin and automatically use that site's cookies, referrer, and browser headers.
