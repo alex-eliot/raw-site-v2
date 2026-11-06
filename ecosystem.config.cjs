@@ -4,8 +4,7 @@ module.exports = {
   apps: [
     {
       name: 'raw-site',
-      cwd: join(__dirname, 'apps/raw-site'),
-      script: '.output/server/index.mjs',
+      script: 'apps/raw-site/.output/server/index.mjs',
       interpreter: 'node',
       instances: 1,
       exec_mode: 'fork',
