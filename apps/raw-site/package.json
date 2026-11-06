@@ -1,0 +1,33 @@
+{
+  "name": "raw-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "typecheck": "nuxt typecheck",
+    "postinstall": "nuxt prepare",
+    "serve:build": "cross-env PORT=4006 node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.4",
+    "@types/node": "^24.19.2",
+    "nuxt": "^4.6.4",
+    "tailwindcss": "^4.3.4",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.3.14"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.23",
+    "@raw-downloader/downloader": "workspace:^",
+    "@tabler/icons-vue": "^3.50.0",
+    "@vueuse/motion": "^3.0.3",
+    "axios": "^1.21.0",
+    "cross-env": "^10.1.0",
+    "jszip": "^3.10.2",
+    "nanoid": "^6.0.2",
+    "superstruct": "^2.0.2"
+  }
+}

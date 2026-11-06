@@ -1,0 +1,26 @@
+{
+  "name": "@raw-downloader/downloader",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./hosts": "./src/hosts.ts",
+    "./inlines": "./src/utils/inlines.ts",
+    "./transport": "./src/transport.ts"
+  },
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "jszip": "^3.10.2",
+    "protobufjs": "^8.8.1",
+    "superstruct": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "typescript": "^5.9.3"
+  }
+}
